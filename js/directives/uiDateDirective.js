@@ -4,15 +4,19 @@ angular.module("listaTelefonica").directive("uiDate", function ($filter) {
         link: function (scope, element, attrs, ctrl) {
             const _formatDate = function (date) {
                 const regex = /[^0-9]+/g
-                date = date.replace(regex, "");
+                if (date.replace(regex, "")) {
+                    date = date.replace(regex, "");
 
-                if (date.length > 2)
-                    date = `${date.substring(0, 2)}/${date.substring(2)}`;
+                    if (date.length > 2)
+                        date = `${date.substring(0, 2)}/${date.substring(2)}`;
 
-                if (date.length > 5)
-                    date = `${date.substring(0, 5)}/${date.substring(5, 9)}`;
+                    if (date.length > 5)
+                        date = `${date.substring(0, 5)}/${date.substring(5, 9)}`;
 
-                return date;
+                    return date;
+                } else {
+                    return ""
+                }
             }
             element.bind("keyup", function () {
                 ctrl.$setViewValue(_formatDate(ctrl.$viewValue));
