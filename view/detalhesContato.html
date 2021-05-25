@@ -1,0 +1,20 @@
+<div class="jumbotron">
+    <ui-accordions>
+        <ui-accordion title="{{app}}" >
+            <table class="table table-striped">
+                <tr>
+                    <th>Serial</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                </tr>
+                <tr>
+                    <td>{{ contato.serial }}</td>
+                    <td>{{ contato.nome | name }}</td>
+                    <td>{{ contato.telefone }}</td>
+                </tr>
+            </table>
+        </ui-accordion>
+    </ui-accordions>
+
+    <a class="btn btn-primary" href="#!/contatos">Voltar</a>
+</div>
