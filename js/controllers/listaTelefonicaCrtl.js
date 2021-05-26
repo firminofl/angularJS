@@ -4,17 +4,22 @@ angular.module("listaTelefonica").controller("listaTelefonicaCrtl",
         $scope.app = "Lista Telefônica";
         $scope.contatos = contatos.data;
         $scope.operadoras = operadoras.data;
+        $scope.hasContatoSelecionado =  false;
 
         $scope.excluirContatos = function (contatos) {
             $scope.contatos = contatos.filter(function (contato) {
-                if (contato.selecionado)
+                if (contato.selecionado) {
                     contatosAPI.deleteContato(contato.id);
+                    $scope.hasContatoSelecionado = false;
+                }
             });
+
+            $scope.verificarContatoSelecionado($scope.contatos);
         };
 
-        $scope.isContatoSelecionados = function (contatos) {
+        $scope.verificarContatoSelecionado = function (contatos) {
             if (contatos)
-                return contatos.some(function (contato) {
+                $scope.hasContatoSelecionado = !contatos.some(function (contato) {
                     return contato.selecionado;
                 })
         };

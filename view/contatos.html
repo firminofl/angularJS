@@ -1,11 +1,12 @@
 <div class="jumbotron">
     <h3> {{app}}</h3>
 
-<!--    <ui-alert title="Ops, aconteceu um problema!" message="errorMessage">-->
-<!--        Não há dados na base!-->
-<!--    </ui-alert>-->
+    <!--    <ui-alert title="Ops, aconteceu um problema!" message="errorMessage">-->
+    <!--        Não há dados na base!-->
+    <!--    </ui-alert>-->
 
-    <input class="form-control" type="text" ng-model="criterioBusca" ng-if="!(errorMessage.length > 0)"
+    <input class="form-control" type="text" ng-model="criterioBusca"
+           ng-model-options="{updateOn: 'default blur', debounce:{default: 500, blur: 0}}"
            placeholder="O que está buscando?"
     >
     <table ng-show="contatos.length > 0" class="table table-striped">
@@ -18,19 +19,19 @@
             <th>Data</th>
         </tr>
         <tr ng-class="{'selecionado negrito': contato.selecionado}" ng-repeat="contato in contatos
-        | filter:criterioBusca">
+        | filter:criterioBusca" ng-click="verificarContatoSelecionado(contatos)">
             <td><input type="checkbox" ng-model="contato.selecionado"/></td>
-            <td>{{ contato.serial }}</td>
-            <td><a href="#!/contatos/{{contato.id}}">{{ contato.nome | name }}</a></td>
-            <td>{{ contato.telefone }}</td>
-            <td>{{ contato.operadora.nome }}</td>
-            <td>{{ contato.data | date:'dd/MM/yyyy'}}</td>
+            <td>{{ ::contato.serial }}</td>
+            <td><a href="#!/contatos/{{contato.id}}">{{ ::contato.nome | name }}</a></td>
+            <td>{{ ::contato.telefone }}</td>
+            <td>{{ ::contato.operadora.nome }}</td>
+            <td>{{ ::contato.data | date:'dd/MM/yyyy'}}</td>
         </tr>
     </table>
     <hr>
 
     <a class="btn btn-primary" href="#!/novoContato">Novo Contato</a>
     <button class="btn btn-danger btn-block" ng-click="excluirContatos(contatos)"
-            ng-if="isContatoSelecionados(contatos)">Apagar
+            ng-if="hasContatoSelecionado">Apagar
     </button>
 </div>
